@@ -29,6 +29,52 @@ function isMaintainers(username, maintainers){
     return false;
 }
 
+function getPkgAttachment(name, version, callback){
+    fis.db.findOne("pkgs", "root", {name : name}, function(error, downloadPkg){
+        if(!error){
+            if(downloadPkg){
+                if(version == "latest"){
+                    version = downloadPkg.version;
+                }
+                var fixVersion = fixPkgVersion(version),
+                    versionPkg = downloadPkg.versions[fixVersion];
+                if(versionPkg){
+                    var filename = revertPkgVersion(versionPkg._attachments.name),
+                        filetype = versionPkg._attachments["content-type"];
+                    callback(null, filename, filetype);
+                }else{
+                    callback("Package [" + name + "] version [" + version + "] not found!");
+                }
+            }else{
+                callback("Package [" + name + "] not found!");
+            }
+        }else{
+            callback(error);
+        }
+    });
+}
+
+module.exports.download = function(req, res, app){
+    var req_pkg = req.body.pkg,
+        params = req.body.params;
+
+    getPkgAttachment(req_pkg.name, req_pkg.version, function(error, file, type){
+        if(!error){
+            fis.db.read(file, {}, function(error, content){
+                if(!error){
+                    res.set("filename", file);
+                    res.set("Content-Type", type);
+                    res.send(content);
+                }else{
+                    res.json(500, {error : error});
+                }
+            });
+        }else{
+            res.json(500, {error : error});
+        }
+    });
+};
+
 
 //todo hasAuth方法重构，整理逻辑思路
 //todo 统一 __ 和 . 两个
