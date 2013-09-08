@@ -43,10 +43,10 @@ function getPkgAttachment(name, version, callback){
                         filetype = versionPkg._attachments["content-type"];
                     callback(null, filename, filetype);
                 }else{
-                    callback("Package [" + name + "] version [" + version + "] not found!");
+                    callback("Component [" + name + "] version [" + version + "] not found!");
                 }
             }else{
-                callback("Package [" + name + "] not found!");
+                callback("Component [" + name + "] not found!");
             }
         }else{
             callback(error);
@@ -120,16 +120,16 @@ module.exports.hasAuth = function(req, res, app){
                                             res.json(200, "Can publish, I sure hope you know what you are doing.");
                                         }else{
                                             if(pkg.versions[fixVersion]){
-                                                res.json(500, "Cannot publish over existing version.");
+                                                res.json(500, "Component [" + req_pkg.name + "] version [" + req_pkg.version + "] already exist, can not publish.");
                                             }else{
-                                                res.json(200, "Can publish the package");
+                                                res.json(200, "Can publish the Component");
                                             }
                                         }
                                         break;
                                     case "unpublish":
                                         /**
                                          * 如果version为all
-                                         *      直接删除掉所有的tar包和这个package
+                                         *      直接删除掉所有的tar包和这个Component
                                          * 检测version是否存在
                                          *      不存在 则报错 unpublish的version不存在
                                          *      存在
@@ -148,7 +148,7 @@ module.exports.hasAuth = function(req, res, app){
                                             }
                                             fis.db.remove("pkgs", user.name, {name : pkg.name}, {}, function(error, result){
                                                 if(!error){
-                                                    res.send(200, {message : "unpublish package [" + pkg.name + "] success!"});
+                                                    res.send(200, {message : "Unpublish component [" + pkg.name + "] success!"});
                                                 }else{
                                                     res.send(500, {error : error});
                                                 }
@@ -162,7 +162,7 @@ module.exports.hasAuth = function(req, res, app){
                                                     });
                                                     fis.db.remove("pkgs", user.name, {name : pkg.name}, {}, function(error, result){
                                                         if(!error){
-                                                            res.send(200, {message : "unpublish package [" + pkg.name + "] success!"});
+                                                            res.send(200, {message : "Unpublish component [" + pkg.name + "] version [" + req_pkg.version + "] success!"});
                                                         }else{
                                                             res.send(500, {error : error});
                                                         }
@@ -189,7 +189,7 @@ module.exports.hasAuth = function(req, res, app){
                                                         if(!error){
                                                             var pkgFile = getPackageFile(pkg.name, req_pkg.version);
                                                             fis.db.unlink(pkgFile, function(error, result){
-                                                                res.json(200, {message : "unpublish package [" + pkg.name + "] success!"});
+                                                                res.send(200, {message : "Unpublish component [" + pkg.name + "] version [" + req_pkg.version + "] success!"});
                                                             });
                                                         }else{
                                                             res.json(500, {error : error});
@@ -197,7 +197,7 @@ module.exports.hasAuth = function(req, res, app){
                                                     });
                                                 }
                                             }else{
-                                                res.send(500, {error : "unpublish package [" + pkg.name + "] version [" + req_pkg.version + "] not exist!"});
+                                                res.send(500, {error : "Unpublish component [" + pkg.name + "] version [" + req_pkg.version + "] not exist!"});
                                             }
                                         }
                                         break;
@@ -270,7 +270,7 @@ module.exports.hasAuth = function(req, res, app){
                                         break;
                                 }
                             }else{
-                                res.json(500, {error : "No permission to handle package [" + pkg.name + "]"});
+                                res.json(500, {error : "No permission to handle Component [" + pkg.name + "]"});
                             }
                         }else{
                             switch(op){
@@ -323,7 +323,7 @@ module.exports.publish = function(req, res, app){
         pkg_name = config.name,
         pkg_version = fixPkgVersion(config.version);
 
-    //todo 方法抽取称package.update , 修改versionHistory
+    //todo 方法抽取称Component.update , 修改versionHistory
     fis.db.findOne("pkgs", user_name, {name : pkg_name}, function(error, pkg){
         if(!error){
             //需要添加的内容 ： latest、time、attachments、versions
@@ -344,9 +344,9 @@ module.exports.publish = function(req, res, app){
                         pkg = fis.util.merge(pkg, config);
                         fis.db.update("pkgs", user_name, {name : config.name}, pkg, {}, function(error, result){
                             if(!error){
-                                res.json(200, "publish package [" + config.name + "] success!");
+                                res.json(200, "publish Component [" + config.name + "] success!");
                             }else{
-                                res.json(500, "publish package [" + config.name + "] error!\n " + error);
+                                res.json(500, "publish Component [" + config.name + "] error!\n " + error);
                             }
                         });
                     }else{
@@ -361,9 +361,9 @@ module.exports.publish = function(req, res, app){
                         config.versionHistory = [config.version];
                         fis.db.insert("pkgs", user_name, config, {}, function(error, result){
                             if(!error){
-                                res.json(200, "publish package [" + config.name + "] success!");
+                                res.json(200, "publish Component [" + config.name + "] success!");
                             }else{
-                                res.json(500, "publish package [" + config.name + "] error!\n " + error);
+                                res.json(500, "publish Component [" + config.name + "] error!\n " + error);
                             }
                         })
                     }
