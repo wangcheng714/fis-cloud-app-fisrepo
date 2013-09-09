@@ -10,13 +10,13 @@ module.exports.exist = function(req, res, app){
             auth = req.query.auth;
         fis.db.findOne("user", username, {username:username, _auth:auth}, function(err, result){
             if(!err){
-                res.json(200, {msg : "Find the user!"});
+                res.json(200, "Find the user!");
             }else{
-                res.json(500, {error : "Not found, username or password is wrong!"});
+                res.json(500, "User not found, username or password is wrong!");
             }
         });
     }else{
-        res.json(500, {error : "must have username and auth!"});
+        res.json(500, "must have username and auth!");
     }
 };
 
@@ -43,7 +43,7 @@ function getPkgAttachment(name, version, callback){
                         filetype = versionPkg._attachments["content-type"];
                     callback(null, filename, filetype);
                 }else{
-                    callback("Component [" + name + "] version [" + version + "] not found!");
+                    callback("Component [" + name + "@" + version + "] not found!");
                 }
             }else{
                 callback("Component [" + name + "] not found!");
@@ -66,11 +66,11 @@ module.exports.download = function(req, res, app){
                     res.set("Content-Type", type);
                     res.send(content);
                 }else{
-                    res.json(500, {error : error});
+                    res.json(500, error);
                 }
             });
         }else{
-            res.json(500, {error : error});
+            res.json(500, error);
         }
     });
 };
@@ -120,7 +120,7 @@ module.exports.hasAuth = function(req, res, app){
                                             res.json(200, "Can publish, I sure hope you know what you are doing.");
                                         }else{
                                             if(pkg.versions[fixVersion]){
-                                                res.json(500, "Component [" + req_pkg.name + "] version [" + req_pkg.version + "] already exist, can not publish.");
+                                                res.json(500, "Component [" + req_pkg.name + "@" + req_pkg.version + "] already exist.");
                                             }else{
                                                 res.json(200, "Can publish the Component");
                                             }
@@ -148,9 +148,9 @@ module.exports.hasAuth = function(req, res, app){
                                             }
                                             fis.db.remove("pkgs", user.name, {name : pkg.name}, {}, function(error, result){
                                                 if(!error){
-                                                    res.send(200, {message : "Unpublish component [" + pkg.name + "] success!"});
+                                                    res.send(200, "Unpublish component [" + pkg.name + "] success!");
                                                 }else{
-                                                    res.send(500, {error : error});
+                                                    res.send(500, error);
                                                 }
                                             });
                                         }else{
@@ -162,9 +162,9 @@ module.exports.hasAuth = function(req, res, app){
                                                     });
                                                     fis.db.remove("pkgs", user.name, {name : pkg.name}, {}, function(error, result){
                                                         if(!error){
-                                                            res.send(200, {message : "Unpublish component [" + pkg.name + "] version [" + req_pkg.version + "] success!"});
+                                                            res.send(200, "Unpublish component [" + pkg.name + "@" + req_pkg.version + "] success!");
                                                         }else{
-                                                            res.send(500, {error : error});
+                                                            res.send(500, error);
                                                         }
                                                     });
                                                 }else{
@@ -189,15 +189,15 @@ module.exports.hasAuth = function(req, res, app){
                                                         if(!error){
                                                             var pkgFile = getPackageFile(pkg.name, req_pkg.version);
                                                             fis.db.unlink(pkgFile, function(error, result){
-                                                                res.send(200, {message : "Unpublish component [" + pkg.name + "] version [" + req_pkg.version + "] success!"});
+                                                                res.send(200, "Unpublish component [" + pkg.name + "@" + req_pkg.version + "] success!");
                                                             });
                                                         }else{
-                                                            res.json(500, {error : error});
+                                                            res.json(500, error);
                                                         }
                                                     });
                                                 }
                                             }else{
-                                                res.send(500, {error : "Unpublish component [" + pkg.name + "] version [" + req_pkg.version + "] not exist!"});
+                                                res.send(500, "Unpublish component [" + pkg.name + "@" + req_pkg.version + "] not exist!");
                                             }
                                         }
                                         break;
@@ -224,16 +224,16 @@ module.exports.hasAuth = function(req, res, app){
                                                             pkg.maintainers = updateMaintainers(adduser, pkg.maintainers, params.type);
                                                             fis.db.update("pkgs", req_user.name, {name : pkg.name}, pkg, {}, function(error){
                                                                 if(!error){
-                                                                    res.json(200, {message : "add user [" + adduser.name + "] success!"});
+                                                                    res.json(200, "add user [" + adduser.name + "] success!");
                                                                 }else{
-                                                                    res.json(500, {error: error});
+                                                                    res.json(500, error);
                                                                 }
                                                             });
                                                         }else{
-                                                            res.json(500, {error : "user [" + params.username + "] not exist!"});
+                                                            res.json(500, "user [" + params.username + "] not exist!");
                                                         }
                                                     }else{
-                                                        res.json(500, {error : error});
+                                                        res.json(500, error);
                                                     }
                                                 });
                                                 break;
@@ -244,21 +244,26 @@ module.exports.hasAuth = function(req, res, app){
                                                             pkg.maintainers = updateMaintainers(removeuser, pkg.maintainers, params.type);
                                                             fis.db.update("pkgs", req_user.name, {name : pkg.name}, pkg, {}, function(error){
                                                                 if(!error){
-                                                                    res.json(200, {message : "rm user [" + removeuser.name + "] success!"});
+                                                                    res.json(200, "rm user [" + removeuser.name + "] success!");
                                                                 }else{
-                                                                    res.json(500, {error: error});
+                                                                    res.json(500, error);
                                                                 }
                                                             });
                                                         }else{
-                                                            res.json(500, {error : "user [" + params.username + "] not exist!"});
+                                                            res.json(500, "user [" + params.username + "] not exist!");
                                                         }
                                                     }else{
-                                                        res.json(500, {error : error});
+                                                        res.json(500, error);
                                                     }
                                                 });
                                                 break;
                                             case 'ls':
-
+                                                console.log(pkg.maintainers);
+                                                var str = "\n";
+                                                for(var i =0; i<pkg.maintainers.length; i++){
+                                                    str += pkg.maintainers[i].name + "\n";
+                                                }
+                                                res.json(200, str);
                                                 break;
                                             default :
 
@@ -270,18 +275,18 @@ module.exports.hasAuth = function(req, res, app){
                                         break;
                                 }
                             }else{
-                                res.json(500, {error : "No permission to handle Component [" + pkg.name + "]"});
+                                res.json(500, "No permission to handle Component [" + pkg.name + "]");
                             }
                         }else{
                             switch(op){
                                 case "publish":
-                                    res.json(200, {msg : "No pkgs find, can " + op + " the pkg"});
+                                    res.json(200, "No pkgs find, can " + op + " the pkg");
                                     break;
                                 case "unpublish":
-                                    res.json(500, {msg : "No pkgs find, can not unpublish the pkg [" + req_pkg.name + "]"});
+                                    res.json(500, "No pkgs find, can not unpublish the pkg [" + req_pkg.name + "]");
                                     break;
                                 case "owner":
-                                    res.json(500, {msg : "No pkgs find, can not add owner of the pkg [" + req_pkg.name + "]"});
+                                    res.json(500, "No pkgs find, can not add owner of the pkg [" + req_pkg.name + "]");
                                     break;
                                 default :
 
@@ -289,14 +294,14 @@ module.exports.hasAuth = function(req, res, app){
                             }
                         }
                     }else{
-                        res.json(500, {error : error});
+                        res.json(500, error);
                     }
                 });
             }else{
-                res.json(500, {error : "Not found, username or password is wrong!"});
+                res.json(500, "Not found, username or password is wrong!");
             }
         }else{
-            res.json(500, {error : error});
+            res.json(500, error);
         }
     });
 
@@ -344,9 +349,9 @@ module.exports.publish = function(req, res, app){
                         pkg = fis.util.merge(pkg, config);
                         fis.db.update("pkgs", user_name, {name : config.name}, pkg, {}, function(error, result){
                             if(!error){
-                                res.json(200, "publish Component [" + config.name + "] success!");
+                                res.json(200, "Publish component [" + pkg.name + "@" + pkg.version + "] success!");
                             }else{
-                                res.json(500, "publish Component [" + config.name + "] error!\n " + error);
+                                res.json(500, "Publish component [" + pkg.name + "@" + pkg.version + "] error [" + error + "]");
                             }
                         });
                     }else{
@@ -359,20 +364,23 @@ module.exports.publish = function(req, res, app){
                             }
                         ];
                         config.versionHistory = [config.version];
+                        config.permission = {
+                            mode : 777
+                        };
                         fis.db.insert("pkgs", user_name, config, {}, function(error, result){
                             if(!error){
-                                res.json(200, "publish Component [" + config.name + "] success!");
+                                res.json(200, "Publish component [" + config.name + "@" + config.version + "] success!");
                             }else{
-                                res.json(500, "publish Component [" + config.name + "] error!\n " + error);
+                                res.json(500, "Publish component [" + config.name + "@" + config.version + "] error!");
                             }
-                        })
+                        });
                     }
                 }else{
-                    res.send(500, {error : error});
+                    res.send(500, error);
                 }
             });
         }else{
-            res.json(500, {error : error});
+            res.json(500, error);
         }
     });
 
