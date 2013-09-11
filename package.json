@@ -3,7 +3,9 @@
   "version": "0.0.1",
   "description": "fis-cloud-app-fisrepo",
   "main": "fis-cloud-app-fisrepo.js",
-  "dependencies": {},
+  "dependencies": {
+      "js-base64": "2.1.2"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -16,5 +18,7 @@
     "name": "fis-team"
   },
   "license": "BSD",
-  "readme": "This file was created by JetBrains PhpStorm 6.0 for binding GitHub repository"
+  "readme": "This file was created by JetBrains PhpStorm 6.0 for binding GitHub repository",
+  "_id": "fis-cloud-app-fisrepo@0.0.1",
+  "_from": "fis-cloud-app-fisrepo@"
 }

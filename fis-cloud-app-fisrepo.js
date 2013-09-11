@@ -1,24 +1,56 @@
-/**
- * 验证用户是否存在，存在则返回200，不存在则返回500
- * @param req
- * @param res
- * @param app
- */
-module.exports.exist = function(req, res, app){
-    if(req.query.username && req.query.auth){
+var Base64 = require('js-base64').Base64,
+    db_user = fis.db.COLLECTION_LIST.user;
+
+module.exports.adduser = function(req, res, app){
+    if(req.query.username && req.query.auth && req.query.email){
         var username = req.query.username,
-            auth = req.query.auth;
-        fis.db.findOne("user", username, {username:username, _auth:auth}, function(err, result){
-            if(!err){
-                res.json(200, "Find the user!");
+            auth = req.query.auth,
+            email = req.query.email;
+        fis.db.findOne(db_user, null, {name : username}, function(err, user){
+            if(err){
+                res.send(500, err);
+            }else if(user == null){
+                //用户不存在，直接插入
+                var userObj = {
+                    _id : username,
+                    name : username,
+                    auth : auth,
+                    email : email
+                };
+                fis.db.insert(db_user, username, userObj, {}, function(err, result){
+                    if(err){
+                        res.json(500, err);
+                    }else{
+                        res.json(200, "Add user successfully");
+                    }
+                });
             }else{
-                res.json(500, "User not found, username or password is wrong!");
+                //用户存在，验证_auth
+                if(auth !== user.auth){
+                    res.json(500, "sorry, username or password is wrong!");
+                }else{
+                    if(email != user.email){
+                        user.email = email;
+                        fis.db.update(db_user, user.name, {name : user.name}, user, {}, function(error, result){
+                            if(error){
+                                res.send(500, "Update email error " + error);
+                            }else{
+                                res.json(200, "Find the user!");
+                            }
+                        });
+                    }else{
+                        res.json(200, "Find the user!");
+                    }
+                }
             }
-        });
+
+        });     
     }else{
-        res.json(500, "must have username and auth!");
+        res.json(500, "Must have username、auth and email!");
     }
 };
+
+
 
 function isMaintainers(username, maintainers){
     for(var i=0; i<maintainers.length; i++){
