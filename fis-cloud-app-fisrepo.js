@@ -2,9 +2,9 @@ var Base64 = require('js-base64').Base64,
     db_user = fis.db.COLLECTION_LIST.user;
 
 module.exports.adduser = function(req, res, app){
-    if(req.query.username && req.query.auth && req.query.email){
+    if(req.query.username && req.query._auth && req.query.email){
         var username = req.query.username,
-            auth = req.query.auth,
+            _auth = req.query._auth,
             email = req.query.email;
         fis.db.findOne(db_user, null, {name : username}, function(err, user){
             if(err){
@@ -14,7 +14,7 @@ module.exports.adduser = function(req, res, app){
                 var userObj = {
                     _id : username,
                     name : username,
-                    auth : auth,
+                    _auth : _auth,
                     email : email
                 };
                 fis.db.insert(db_user, username, userObj, {}, function(err, result){
@@ -26,7 +26,7 @@ module.exports.adduser = function(req, res, app){
                 });
             }else{
                 //用户存在，验证_auth
-                if(auth !== user.auth){
+                if(_auth != user._auth){
                     res.json(500, "sorry, username or password is wrong!");
                 }else{
                     if(email != user.email){
@@ -290,10 +290,9 @@ module.exports.hasAuth = function(req, res, app){
                                                 });
                                                 break;
                                             case 'ls':
-                                                console.log(pkg.maintainers);
                                                 var str = "\n";
                                                 for(var i =0; i<pkg.maintainers.length; i++){
-                                                    str += pkg.maintainers[i].name + "\n";
+                                                    str += "username : " + pkg.maintainers[i].name + " email : " + pkg.maintainers[i].email + "\n";
                                                 }
                                                 res.json(200, str);
                                                 break;
@@ -312,13 +311,13 @@ module.exports.hasAuth = function(req, res, app){
                         }else{
                             switch(op){
                                 case "publish":
-                                    res.json(200, "No pkgs find, can " + op + " the pkg");
+                                    res.json(200, "Not find component [" + req_pkg.name + "]");
                                     break;
                                 case "unpublish":
-                                    res.json(500, "No pkgs find, can not unpublish the pkg [" + req_pkg.name + "]");
+                                    res.json(500, "Not find component [" + req_pkg.name + "]");
                                     break;
                                 case "owner":
-                                    res.json(500, "No pkgs find, can not add owner of the pkg [" + req_pkg.name + "]");
+                                    res.json(500, "Not find component [" + req_pkg.name + "]");
                                     break;
                                 default :
 
