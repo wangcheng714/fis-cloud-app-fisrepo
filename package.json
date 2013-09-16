@@ -1,6 +1,6 @@
 {
   "name": "fis-cloud-app-fisrepo",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "fis-cloud-app-fisrepo",
   "main": "fis-cloud-app-fisrepo.js",
   "dependencies": {
