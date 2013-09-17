@@ -1,0 +1,41 @@
+!!! 5
+html
+    head
+        title #{title}
+        link(
+            rel="stylesheet"
+            href="/static/fisrepo/css/gc.css"
+        )
+        link(
+            rel="stylesheet"
+            href="/static/fisrepo/css/packages.css"
+        )
+        link(
+            rel="stylesheet"
+            href="/static/fisrepo/css/github-modified.css"
+        )
+        link(
+            rel="shortcut icon"
+            href="/static/fisrepo/image/favicon.ico"
+        )
+        block stylesheets
+    body
+        div.navbar
+            div.navbar-inner
+                div.container-fluid
+                    div#session.pull-right
+                        ul.nav.hidden-phone
+                            li
+                                a(href="/users/#/signup") Create account
+                            li.divider-vertical
+                            li
+                                a.signin-link(href="/users/#/login") Sign in
+                                    i.icon-signin
+                    ul.nav
+                        li
+                            a(href="/packages/") Packages
+                        li
+                            a(href="/doc/") Docs
+        div#content
+            block content
+        block scripts

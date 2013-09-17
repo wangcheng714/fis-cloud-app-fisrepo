@@ -1,0 +1,38 @@
+
+## Component数据结构
+
+    :::javascript
+    {
+        id : "",
+        name : "",
+        version : "",
+        description : "",
+        dependencies : {
+
+        },
+        maintainers : [
+            {
+                name : "",
+                email : ""
+            },
+            {
+                name : "",
+                email : ""
+            }
+        ],
+        keywords : [],
+        latest : "",
+        versionHistory : [],
+        _attachments : {
+            name : "",
+            content-type : "",
+            length :
+        },
+        create-time : "",
+        update-time : "",
+        download-times : "",
+        versions : {
+            "0__0__1" : {},
+            "0__0__2" : {}
+        }
+    }

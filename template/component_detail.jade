@@ -1,0 +1,45 @@
+extends ./layout/layout.jade
+
+block stylesheets
+    link(
+        rel="stylesheet"
+        href="/static/fisrepo/css/detail.css"
+    )
+
+block content
+    div.container-fluid
+        div.row-fluid(style='margin-top: 20px;')
+            div.page-main.package-details.span9
+                div.container-fluid
+                    h1
+                        a(href='#/') Components
+                        i.icon-chevron-right(style='font-size: 72%; color: #999; margin: 0 0.25em;')
+                        | #{component.name}
+                    p.description #{component.description}
+                    pre.sh.sh_sourceCode
+                        code
+                            $ fis component install #{component.name}
+                    div.downloads #{component.downloads} downloads totally
+                    table.table.package-details-table
+                        tbody
+                            tr
+                                th Version
+                                td #{component.version}
+                            tr
+                                th Published
+                                td #{component['update-time']}
+                            tr.owners
+                                th Owner(s)
+                                td
+                                    ul
+                                        for maintainer in component.maintainers
+                                            li.owner(rel= maintainer.name)
+                                                a.user-link(href='#/user/' + maintainer.name) #{maintainer.name}
+                            tr
+                                th Archive
+                                td component download url
+                    div#readme
+                        h3.filename
+                            i.icon-book
+                            | README.md
+                        div.data
