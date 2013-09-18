@@ -30,7 +30,7 @@
         },
         create-time : "",
         update-time : "",
-        download-times : "",
+        totaldowns : "",
         versions : {
             "0__0__1" : {},
             "0__0__2" : {}

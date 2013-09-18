@@ -5,8 +5,8 @@
     "main": "fis-cloud-app-fisrepo.js",
     "dependencies": {
         "async" : "0.2.9",
-        "blade" : "3.2.7",
-        "jade" : "0.35.0"
+        "jade" : "0.35.0",
+        "marked" : "0.2.9"
     },
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1"
