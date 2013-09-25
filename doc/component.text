@@ -31,6 +31,7 @@
         create-time : "",
         update-time : "",
         totaldowns : "",
+        readmefile : "",
         versions : {
             "0__0__1" : {},
             "0__0__2" : {}

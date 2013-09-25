@@ -48,7 +48,4 @@ block content
                         h3.filename
                             i.icon-book
                             | README.md
-                        div.data
-                            :markdown
-                                ## Foo
-                                Extract from `<cite>`Pandora’s Star`</cite>` by Peter F. Hamilton
+                        div.data!= readmeContent

@@ -1,24 +1,24 @@
 {
-    "name": "fis-cloud-app-fisrepo",
-    "version": "0.0.2",
-    "description": "fis-cloud-app-fisrepo",
-    "main": "fis-cloud-app-fisrepo.js",
-    "dependencies": {
-        "async" : "0.2.9",
-        "jade" : "0.35.0",
-        "marked" : "0.2.9"
-    },
-    "scripts": {
-        "test": "echo \"Error: no test specified\" && exit 1"
-    },
-    "keywords": [
-        "fis",
-        "fis-cloud-app",
-        "fis-cloud-app-fisrepo"
-    ],
-    "author": {
-        "name": "fis-team"
-    },
-    "license": "BSD",
-    "readme": "This file was created by JetBrains PhpStorm 6.0 for binding GitHub repository"
+  "name": "fis-cloud-app-fisrepo",
+  "version": "0.0.3",
+  "description": "fis-cloud-app-fisrepo",
+  "main": "fis-cloud-app-fisrepo.js",
+  "dependencies": {
+    "async": "0.2.9",
+    "jade": "0.35.0",
+    "node-markdown" : "0.1.1"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "fis",
+    "fis-cloud-app",
+    "fis-cloud-app-fisrepo"
+  ],
+  "author": {
+    "name": "fis-team"
+  },
+  "license": "BSD",
+  "readme": "This file was created by JetBrains PhpStorm 6.0 for binding GitHub repository"
 }

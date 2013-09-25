@@ -9,6 +9,12 @@ module.exports = function(req, res, app){
         user_name = req.body.user_name,
         config_str = req.body.config;
 
+    var readme_path = null;
+
+        if(req.files.readme){
+            readme_path = req.files.readme.path;
+        }
+
     var config = JSON.parse(config_str),
         component_name = config.name;
 
@@ -24,6 +30,11 @@ module.exports = function(req, res, app){
                         "content-type" : file_type,
                         length : file_size
                     };
+                    if(readme_path){
+                        var readmeFile = Component.getReadmeFile(component.name, component.version);
+                        config.readmeFile = readmeFile;
+                        fis.db.writeFile(readmeFile, {}, readme_path, function(error, gs){});
+                    }
                     if(component){
                         Component.updateComponent(component, config, user_name, function(error, result){
                             if(!error){
