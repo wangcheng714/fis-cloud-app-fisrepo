@@ -1,6 +1,5 @@
 var Component = require("../../lib/component.js"),
-    render_helper = require("../../lib/render.js"),
-    md = require("node-markdown").Markdown;
+    render_helper = require("../../lib/render.js");
 
 module.exports = function(req, res, app){
 
@@ -18,7 +17,7 @@ module.exports = function(req, res, app){
                         if(error){
                             res.send(500, error);
                         }else{
-                            var readmeContent = md(content);
+                            var readmeContent = render_helper.parseMarkdown(content);
                             res.render("component_detail", {
                                 component : component,
                                 readmeContent : readmeContent
