@@ -31,24 +31,24 @@ module.exports = function(req, res, app){
                         length : file_size
                     };
                     if(readme_path){
-                        var readmeFile = Component.getReadmeFile(component.name, component.version);
+                        var readmeFile = Component.getReadmeFile(config.name, config.version);
                         config.readmeFile = readmeFile;
                         fis.db.writeFile(readmeFile, {}, readme_path, function(error, gs){});
                     }
                     if(component){
                         Component.updateComponent(component, config, user_name, function(error, result){
                             if(!error){
-                                res.json(200, "Publish component [" + component.name + "@" + component.version + "] success!");
+                                res.send(200, "Publish component [" + component.name + "@" + component.version + "] success!");
                             }else{
-                                res.json(500, "Publish component [" + component.name + "@" + component.version + "] error [" + error + "]");
+                                res.send(500, "Publish component [" + component.name + "@" + component.version + "] error [" + error + "]");
                             }
                         });
                     }else{
                         Component.addComponent(config, user_name, function(error, result){
                             if(!error){
-                                res.json(200, "Publish component [" + config.name + "@" + config.version + "] success!");
+                                res.send(200, "Publish component [" + config.name + "@" + config.version + "] success!");
                             }else{
-                                res.json(500, "Publish component [" + config.name + "@" + config.version + "] error!");
+                                res.send(500, "Publish component [" + config.name + "@" + config.version + "] error [" + error + "]");
                             }
                         })
                     }

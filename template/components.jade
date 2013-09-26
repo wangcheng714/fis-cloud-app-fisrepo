@@ -3,197 +3,42 @@ extends ./layout/layout.jade
 block content
     .container-fluid
         .row-fluid(style='margin-top: 20px;')
-            .page-main.page-home.span9
+            .page-main.page-home.span12
               .container-fluid
                 .row-fluid
                   .span12
                     h1 Components
-                    form#package-search-form.form-inline(style='margin-top: 1em;')
+                    form#package-search-form.form-inline(style='margin-top: 1em;', action='#{searchUrl}',method='GET')
                       .control-group
                         .input-append
-                          input#package-search-q(type='text', placeholder='Search')
+                          input#package-search-q(type='text',name='key',placeholder='Search')
                           button#package-search-submit.btn(type='submit') Go
                           span.help-inline
                 #searchResults.row-fluid(style='margin-top: 1.618em; display: none;')
                 #overview.row-fluid(style='margin-top: 1.618em;')
-                  .span6
-                    h3 Latest updates
+                  .span5
+                    h3 最近更新
                     #latest-updates
-                      ol.package-list.latest-updates
-                        li.row-fluid
-                          .span1
-                            img(src='http://www.gravatar.com/avatar/e8153037a068f1c32e546f82729a64a5?size=32&default=identicon')
-                          .details.span7
-                            a.user(href='#/user/cwmma')
-                              | cwmma
-                            span.action updated
-                            a.name(href='#/details/jszip', title='An AMD version of the library by STUK for creating, reading and editing .zip files with Javascript, with a lovely and simple API.')
-                              | jszip
-                            a.version(href='#/details/jszip/0.2.0') 0.2.0
-                          .extra.span4
-                            | 8 hours ago
-                        li.row-fluid
-                          .span1
-                            img(src='http://www.gravatar.com/avatar/e8153037a068f1c32e546f82729a64a5?size=32&default=identicon')
-                          .details.span7
-                            a.user(href='#/user/cwmma')
-                              | cwmma
-                            span.action updated
-                            a.name(href='#/details/immediate', title='A shim for the setImmediate efficient script yielding API')
-                              | immediate
-                            a.version(href='#/details/immediate/2.4.2') 2.4.2
-                          .extra.span4
-                            | 9 hours ago
-                        li.row-fluid
-                          .span1
-                            img(src='http://www.gravatar.com/avatar/59c34ded9ca67937318060c04f1dd498?size=32&default=identicon')
-                          .details.span7
-                            a.user(href='#/user/JohnDotAwesome')
-                              | JohnDotAwesome
-                            span.action updated
-                            a.name(href='#/details/mongo-sql', title='A mongo-like interface for sql generation, postgres-style')
-                              | mongo-sql
-                            a.version(href='#/details/mongo-sql/2.2.2') 2.2.2
-                          .extra.span4
-                            | 18 hours ago
-                        li.row-fluid
-                          .span1
-                            img(src='http://www.gravatar.com/avatar/e8153037a068f1c32e546f82729a64a5?size=32&default=identicon')
-                          .details.span7
-                            a.user(href='#/user/cwmma')
-                              | cwmma
-                            span.action updated
-                            a.name(href='#/details/proj4', title='Proj4js is a JavaScript library to transform point coordinates from one coordinate system to another, including datum transformations.')
-                              | proj4
-                            a.version(href='#/details/proj4/1.4.0') 1.4.0
-                          .extra.span4
-                            | 21 hours ago
-                        li.row-fluid
-                          .span1
-                            img(src='http://www.gravatar.com/avatar/59c34ded9ca67937318060c04f1dd498?size=32&default=identicon')
-                          .details.span7
-                            a.user(href='#/user/JohnDotAwesome')
-                              | JohnDotAwesome
-                            span.action updated
-                            a.name(href='#/details/mongo-sql', title='A mongo-like interface for sql generation, postgres-style')
-                              | mongo-sql
-                            a.version(href='#/details/mongo-sql/2.2.1') 2.2.1
-                          .extra.span4
-                            | yesterday
-                        li.row-fluid
-                          .span1
-                            img(src='http://www.gravatar.com/avatar/59c34ded9ca67937318060c04f1dd498?size=32&default=identicon')
-                          .details.span7
-                            a.user(href='#/user/JohnDotAwesome')
-                              | JohnDotAwesome
-                            span.action updated
-                            a.name(href='#/details/mongo-sql', title='A mongo-like interface for sql generation, postgres-style')
-                              | mongo-sql
-                            a.version(href='#/details/mongo-sql/2.2.0') 2.2.0
-                          .extra.span4
-                            | yesterday
-                        li.row-fluid
-                          .span1
-                            img(src='http://www.gravatar.com/avatar/e8153037a068f1c32e546f82729a64a5?size=32&default=identicon')
-                          .details.span7
-                            a.user(href='#/user/cwmma')
-                              | cwmma
-                            span.action updated
-                            a.name(href='#/details/immediate', title='A shim for the setImmediate efficient script yielding API')
-                              | immediate
-                            a.version(href='#/details/immediate/2.4.1') 2.4.1
-                          .extra.span4
-                            | yesterday
-                        li.row-fluid
-                          .span1
-                            img(src='http://www.gravatar.com/avatar/6b280328ebb187f206ac98c07c8f31db?size=32&default=identicon')
-                          .details.span7
-                            a.user(href='#/user/philbooth')
-                              | philbooth
-                            span.action updated
-                            a.name(href='#/details/trier', title='Because everyone loves a trier! Conditional and repeated task invocation for node and browser.')
-                              | trier
-                            a.version(href='#/details/trier/0.3.1') 0.3.1
-                          .extra.span4
-                            | 2 days ago
-                        li.row-fluid
-                          .span1
-                            img(src='http://www.gravatar.com/avatar/299a3d891ff1920b69c364d061007043?size=32&default=identicon')
-                          .details.span7
-                            a.user(href='#/user/jdalton')
-                              | jdalton
-                            span.action updated
-                            a.name(href='#/details/lodash', title='A utility library delivering consistency, customization, performance, & extras.')
-                              | lodash
-                            a.version(href='#/details/lodash/2.1.0') 2.1.0
-                          .extra.span4
-                            | 2 days ago
-                        li.row-fluid
-                          .span1
-                            img(src='http://www.gravatar.com/avatar/7aad0693bdd22870a8b743ad1f08c1b8?size=32&default=identicon')
-                          .details.span7
-                            a.user(href='#/user/quincyglenn')
-                              | quincyglenn
-                            span.action updated
-                            a.name(href='#/details/jam-datatables-bootstrap', title='DataTables is a plug-in for the jQuery Javascript library.')
-                              | jam-datatables-bootstrap
-                            a.version(href='#/details/jam-datatables-bootstrap/1.9.4') 1.9.4
-                          .extra.span4
-                            | 2 days ago
+                        ol.package-list
+                            for updateComponent in data.updateComponents
+                                li.row-fluid
+                                    .details.span7
+                                        a.user(href='#/user/cwmma')
+                                            | #{updateComponent.updateAuthor}
+                                        span.action updated
+                                        a.name(href='#{updateComponent.componentUrl}') #{updateComponent.name}
+                                    .extra.span4
+                                        | #{updateComponent.updateTime} hours ago
                   .span3
-                    h3 Most downloads
+                    h3 下载最多
                     #most-depended-on
-                      ol.package-list
-                        li.row-fluid
-                          .details.span7
-                            a.name(href='#/details/jquery') jquery
-                          .extra.span5
-                            | 54  packages
-                        li.row-fluid
-                          .details.span7
-                            a.name(href='#/details/underscore') underscore
-                          .extra.span5
-                            | 32  packages
-                        li.row-fluid
-                          .details.span7
-                            a.name(href='#/details/backbone') backbone
-                          .extra.span5
-                            | 30  packages
-                        li.row-fluid
-                          .details.span7
-                            a.name(href='#/details/text') text
-                          .extra.span5
-                            | 10  packages
-                        li.row-fluid
-                          .details.span7
-                            a.name(href='#/details/couchr') couchr
-                          .extra.span5
-                            | 6  packages
-                        li.row-fluid
-                          .details.span7
-                            a.name(href='#/details/async') async
-                          .extra.span5
-                            | 5  packages
-                        li.row-fluid
-                          .details.span7
-                            a.name(href='#/details/grunt') grunt
-                          .extra.span5
-                            | 5  packages
-                        li.row-fluid
-                          .details.span7
-                            a.name(href='#/details/coffee-script') coffee-script
-                          .extra.span5
-                            | 4  packages
-                        li.row-fluid
-                          .details.span7
-                            a.name(href='#/details/uglify-js') uglify-js
-                          .extra.span5
-                            | 4  packages
-                        li.row-fluid
-                          .details.span7
-                            a.name(href='#/details/zepto') zepto
-                          .extra.span5
-                            | 4  packages
+                        ol.package-list
+                            for downloadComponent in data.downloadComponents
+                                li.row-fluid
+                                    .details.span7
+                                        a.name(href='#{downloadComponent.componentUrl}') #{downloadComponent.name}
+                                    .extra.span5
+                                        | #{downloadComponent.totaldowns}  downloads
                   .span3
                     h3 Top submittors
                     #top-submittors
@@ -248,105 +93,3 @@ block content
                             a.user(href='#/user/garbas') garbas
                           .extra.span5
                             | 13  packages
-            .page-sidebar.span3
-              .container-fluid
-                h4 Categories
-                #categories.loaded-counts
-                  ul.nav.nav-list.category-list
-                    li(rel='All')
-                      a(href='#/category/All')
-                        | All
-                        span.count (669)
-                    li(rel='AJAX & Websockets')
-                      a(href='#/category/AJAX%20%26%20Websockets')
-                        | AJAX & Websockets
-                        span.count (6)
-                    li(rel='API Clients')
-                      a(href='#/category/API%20Clients')
-                        | API Clients
-                        span.count (4)
-                    li(rel='CSS')
-                      a(href='#/category/CSS')
-                        | CSS
-                        span.count (1)
-                    li(rel='Crypto')
-                      a(href='#/category/Crypto')
-                        | Crypto
-                        span.count (0)
-                    li(rel='DOM')
-                      a(href='#/category/DOM')
-                        | DOM
-                        span.count (12)
-                    li(rel='Data')
-                      a(href='#/category/Data')
-                        | Data
-                        span.count (4)
-                    li(rel='Effects')
-                      a(href='#/category/Effects')
-                        | Effects
-                        span.count (4)
-                    li(rel='Events')
-                      a(href='#/category/Events')
-                        | Events
-                        span.count (17)
-                    li(rel='Frameworks')
-                      a(href='#/category/Frameworks')
-                        | Frameworks
-                        span.count (8)
-                    li(rel='Geographic')
-                      a(href='#/category/Geographic')
-                        | Geographic
-                        span.count (1)
-                    li(rel='Loader plugins')
-                      a(href='#/category/Loader%20plugins')
-                        | Loader plugins
-                        span.count (8)
-                    li(rel='Media')
-                      a(href='#/category/Media')
-                        | Media
-                        span.count (0)
-                    li(rel='Parsers & Compilers')
-                      a(href='#/category/Parsers%20%26%20Compilers')
-                        | Parsers & Compilers
-                        span.count (3)
-                    li(rel='Routing')
-                      a(href='#/category/Routing')
-                        | Routing
-                        span.count (5)
-                    li(rel='Shims')
-                      a(href='#/category/Shims')
-                        | Shims
-                        span.count (4)
-                    li(rel='Storage')
-                      a(href='#/category/Storage')
-                        | Storage
-                        span.count (2)
-                    li(rel='Templating')
-                      a(href='#/category/Templating')
-                        | Templating
-                        span.count (11)
-                    li(rel='Testing')
-                      a(href='#/category/Testing')
-                        | Testing
-                        span.count (3)
-                    li(rel='UI')
-                      a(href='#/category/UI')
-                        | UI
-                        span.count (20)
-                    li(rel='Utilities')
-                      a(href='#/category/Utilities')
-                        | Utilities
-                        span.count (27)
-                    li(rel='Validation')
-                      a(href='#/category/Validation')
-                        | Validation
-                        span.count (1)
-                    li(rel='Visualization')
-                      a(href='#/category/Visualization')
-                        | Visualization
-                        span.count (8)
-                    li(rel='Uncategorized')
-                      a(href='#/category/Uncategorized')
-                        | Uncategorized
-                        span.count (580)
-

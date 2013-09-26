@@ -19,30 +19,30 @@ block content
                     pre.sh.sh_sourceCode
                         code
                             $ fis component install #{component.name}
-                    div.downloads #{component.totaldowns} downloads totally
+                    div.downloads 一共下载 #{component.totaldowns} 次
                     table.table.package-details-table
                         tbody
                             tr
-                                th Version
+                                th 版本
                                 td #{component.version}
                             tr
-                                th Published
-                                td #{component['update-time']}
+                                th 发布时间
+                                td #{component['updateTime']}
                             if component.keywords
                                 tr
-                                    th Keywords
+                                    th 关键词
                                     td
                                         for keyword in component.keywords
                                             span.keyword #{keyword},
                             tr.owners
-                                th Owner(s)
+                                th 维护者
                                 td
                                     ul
                                         for maintainer in component.maintainers
                                             li.owner(rel= maintainer.name)
                                                 a.user-link(href='#/user/' + maintainer.name) #{maintainer.name}
                             tr
-                                th Archive
+                                th 下载包
                                 td component download url
                     div#readme
                         h3.filename

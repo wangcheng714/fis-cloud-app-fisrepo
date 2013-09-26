@@ -1,4 +1,5 @@
-module.exports.search = function(req, res, app){
+
+module.exports = function(req, res, app){
     var db = fis.db.getConnection();
     
     var query = {},
@@ -6,6 +7,7 @@ module.exports.search = function(req, res, app){
     if(req.query.q){
         query = req.query.q;
         var reg = new RegExp(query, 'g');
+console.log(reg);
         queryObj = {
             $or: [
                 {name: reg},
@@ -35,7 +37,7 @@ module.exports.search = function(req, res, app){
             if(result === null){
                 res.json(500, {error : 'sorry, no components found'});
             }else{
-                //²éÑ¯maintainers£¬·µ»ØÊý×é£¬mergeºó·µ»Ø
+                //ï¿½ï¿½Ñ¯maintainersï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½é£¬mergeï¿½ó·µ»ï¿½
                 result.toArray(function(err, r){
                     if(err){
                         res.json(500, {error : err});

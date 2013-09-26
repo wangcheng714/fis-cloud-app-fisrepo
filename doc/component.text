@@ -28,10 +28,12 @@
             content-type : "",
             length :
         },
-        create-time : "",
-        update-time : "",
+        createTime : "",
+        updateTime : "",
+        updateStamp : "",
+        updateAuthor : "",
         totaldowns : "",
-        readmefile : "",
+        readmeFile : "",
         versions : {
             "0__0__1" : {},
             "0__0__2" : {}
