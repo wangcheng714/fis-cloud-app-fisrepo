@@ -1,22 +1,22 @@
 !!! 5
 html
     head
-        title #{title}
+        title FIS Component
         link(
             rel="stylesheet"
-            href="/static/fisrepo/css/gc.css"
+            href="/static/#{appName}/css/gc.css"
         )
         link(
             rel="stylesheet"
-            href="/static/fisrepo/css/packages.css"
+            href="/static/#{appName}/css/packages.css"
         )
         link(
             rel="stylesheet"
-            href="/static/fisrepo/css/github-modified.css"
+            href="/static/#{appName}/css/github-modified.css"
         )
         link(
             rel="shortcut icon"
-            href="/static/fisrepo/image/favicon.ico"
+            href="/static/#{appName}/image/favicon.ico"
         )
         block stylesheets
     body
@@ -25,15 +25,24 @@ html
                 div.container-fluid
                     div#session.pull-right
                         ul.nav.hidden-phone
-                            li
-                                a(href="/users/#/signup") 注册
-                            li.divider-vertical
-                            li
-                                a.signin-link(href="/users/#/login") 登录
-                                    i.icon-signin
+                            if session.username
+                                li
+                                    a(href='/#{appName}/user_detail?name=#{session.username}') #{session.username}
+                                li.divider-vertical
+                                li
+                                    a.signout-link(href='/usersite/logout?url=#{req.originalUrl}')
+                                        i.icon-signout
+                                        | Sign Out
+                            else
+                                li
+                                    a(href="/usersite/register?url=#{req.originalUrl}") 注册
+                                li.divider-vertical
+                                li
+                                    a.signin-link(href="/usersite/login?url=#{req.originalUrl}") 登录
+                                        i.icon-signin
                     ul.nav
                         li
-                            a(href="/fisrepo/components") Components
+                            a(href="/#{appName}/components") Components
                         li
                             a(href="/doc/") 文档
         div#content

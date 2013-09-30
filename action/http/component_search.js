@@ -10,11 +10,14 @@ module.exports = function(req, res, app){
                 res.send(500, "search error " + error);
             }else{
                 for(var i=0; i<components.length; i++){
-                    components[i].componentUrl = "/fisrepo/component_detail?name=" + components[i].name;
+                    components[i].componentUrl = "/" + app.get("appName") + "/component_detail?name=" + components[i].name;
                 }
                 res.render("component_search", {
                     key : key,
-                    components : components
+                    redirectUrl : req.originalUrl,
+                    components : components,
+                    appName : app.get("appName"),
+                    username : app.get("userName") ? app.get("userName") : null
                 });
             }
         });

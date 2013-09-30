@@ -20,13 +20,18 @@ module.exports = function(req, res, app){
                             var readmeContent = render_helper.parseMarkdown(content);
                             res.render("component_detail", {
                                 component : component,
-                                readmeContent : readmeContent
+                                appName : app.get("appName"),
+                                readmeContent : readmeContent,
+                                username : app.get("userName") ? app.get("userName") : null
                             });
                         }
                     });
                 }else{
                     res.render("component_detail", {
-                        component : component
+                        appName : app.get("appName"),
+                        redirectUrl : req.originalUrl,
+                        component : component,
+                        username : app.get("userName") ? app.get("userName") : null
                     });
                 }
             }

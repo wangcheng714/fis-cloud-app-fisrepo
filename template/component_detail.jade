@@ -3,7 +3,7 @@ extends ./layout/layout.jade
 block stylesheets
     link(
         rel="stylesheet"
-        href="/static/fisrepo/css/detail.css"
+        href="/static/#{appName}/css/detail.css"
     )
 
 block content
@@ -12,7 +12,7 @@ block content
             div.page-main.package-details.span9
                 div.container-fluid
                     h1
-                        a(href='#/') Components
+                        a(href='/#{appName}/components') Components
                         i.icon-chevron-right(style='font-size: 72%; color: #999; margin: 0 0.25em;')
                         | #{component.name}
                     p.description #{component.description}
@@ -40,7 +40,7 @@ block content
                                     ul
                                         for maintainer in component.maintainers
                                             li.owner(rel= maintainer.name)
-                                                a.user-link(href='#/user/' + maintainer.name) #{maintainer.name}
+                                                a.user-link(href='/#{appName}/user_detail?name=#{maintainer.name}') #{maintainer.name}
                             tr
                                 th 下载包
                                 td component download url

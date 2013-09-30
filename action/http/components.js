@@ -13,7 +13,7 @@ module.exports = function(req, res, app){
                 }else{
                     for(var i=0; i<updateComponents.length; i++){
                         updateComponents[i].updateTime = Math.ceil(((new Date()).getTime()-updateComponents[i].updateStamp) / (1000 * 60 * 60));
-                        updateComponents[i].componentUrl = "/fisrepo/component_detail?name=" + updateComponents[i].name;
+                        updateComponents[i].componentUrl = "/" + app.get("appName") + "/component_detail?name=" + updateComponents[i].name;
                     }
                     callback(error, updateComponents);
                 }
@@ -25,11 +25,14 @@ module.exports = function(req, res, app){
                     callback(error);
                 }else{
                     for(var i=0; i<downloadComponents.length; i++){
-                        downloadComponents[i].componentUrl = "/fisrepo/component_detail?name=" + downloadComponents[i].name;
+                        downloadComponents[i].componentUrl = "/" + app.get("appName") + "/component_detail?name=" + downloadComponents[i].name;
                     }
                     callback(error, downloadComponents);
                 }
             })
+        },
+        submittorComponents : function(callback){
+            Component.getUserPackageNum(callback);
         }
     },function(error, results){
         if(error){
@@ -37,7 +40,10 @@ module.exports = function(req, res, app){
         }else{
             res.render("components", {
                 data : results,
-                searchUrl : "/fisrepo/component_search"
+                appName : app.get("appName"),
+                redirectUrl : req.originalUrl,
+                searchUrl : "/" + app.get("appName") + "/component_search",
+                username : app.get("userName") ? app.get("userName") : null
             });
         }
     });

@@ -1,5 +1,11 @@
 extends ./layout/layout.jade
 
+block stylesheets
+    link(
+        rel="stylesheet"
+        href="/static/#{appName}/css/components.css"
+    )
+
 block content
     .container-fluid
         .row-fluid(style='margin-top: 20px;')
@@ -12,7 +18,7 @@ block content
                       .control-group
                         .input-append
                           input#package-search-q(type='text',name='key',placeholder='Search')
-                          button#package-search-submit.btn(type='submit') Go
+                          button#package-search-submit.btn(type='submit') 搜索
                           span.help-inline
                 #searchResults.row-fluid(style='margin-top: 1.618em; display: none;')
                 #overview.row-fluid(style='margin-top: 1.618em;')
@@ -23,14 +29,14 @@ block content
                             for updateComponent in data.updateComponents
                                 li.row-fluid
                                     .details.span7
-                                        a.user(href='#/user/cwmma')
+                                        a.user(href='/#{appName}/user_detail?name=#{updateComponent.updateAuthor}')
                                             | #{updateComponent.updateAuthor}
                                         span.action updated
                                         a.name(href='#{updateComponent.componentUrl}') #{updateComponent.name}
                                     .extra.span4
                                         | #{updateComponent.updateTime} hours ago
                   .span3
-                    h3 下载最多
+                    h3 下载排行榜
                     #most-depended-on
                         ol.package-list
                             for downloadComponent in data.downloadComponents
@@ -40,56 +46,12 @@ block content
                                     .extra.span5
                                         | #{downloadComponent.totaldowns}  downloads
                   .span3
-                    h3 Top submittors
+                    h3 贡献排行榜
                     #top-submittors
-                      ol.package-list
-                        li.row-fluid
-                          .details.span7
-                            a.user(href='#/user/digitalego') digitalego
-                          .extra.span5
-                            | 64  packages
-                        li.row-fluid
-                          .details.span7
-                            a.user(href='#/user/ryanramage') ryanramage
-                          .extra.span5
-                            | 64  packages
-                        li.row-fluid
-                          .details.span7
-                            a.user(href='#/user/caolan') caolan
-                          .extra.span5
-                            | 39  packages
-                        li.row-fluid
-                          .details.span7
-                            a.user(href='#/user/tbranyen') tbranyen
-                          .extra.span5
-                            | 25  packages
-                        li.row-fluid
-                          .details.span7
-                            a.user(href='#/user/quincyglenn') quincyglenn
-                          .extra.span5
-                            | 21  packages
-                        li.row-fluid
-                          .details.span7
-                            a.user(href='#/user/clexit') clexit
-                          .extra.span5
-                            | 19  packages
-                        li.row-fluid
-                          .details.span7
-                            a.user(href='#/user/JohnDotAwesome') JohnDotAwesome
-                          .extra.span5
-                            | 16  packages
-                        li.row-fluid
-                          .details.span7
-                            a.user(href='#/user/maxp') maxp
-                          .extra.span5
-                            | 15  packages
-                        li.row-fluid
-                          .details.span7
-                            a.user(href='#/user/grahamgilchrist') grahamgilchrist
-                          .extra.span5
-                            | 13  packages
-                        li.row-fluid
-                          .details.span7
-                            a.user(href='#/user/garbas') garbas
-                          .extra.span5
-                            | 13  packages
+                        ol.package-list
+                            for submittorComponent in data.submittorComponents
+                                li.row-fluid
+                                    .details.span7
+                                        a.user(href='/#{appName}/user_detail?name=#{submittorComponent.name}') #{submittorComponent.name}
+                                    .extra.span5
+                                        | #{submittorComponent.value}  packages
