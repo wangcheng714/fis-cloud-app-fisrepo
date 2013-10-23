@@ -17,6 +17,7 @@ module.exports = function(req, res, app){
                     redirectUrl : req.originalUrl,
                     components : components,
                     appName : app.get("appName"),
+                    searchUrl : "/" + app.get("appName") + "/component_search",
                     username : app.get("userName") ? app.get("userName") : null
                 });
             }

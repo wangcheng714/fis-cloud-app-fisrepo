@@ -19,7 +19,6 @@ body {
     font-weight: bold;
 }
 .package-list li .action {
-    font-style: italic;
     margin: 0 0.346em;
 }
 .package-list .version {
@@ -81,7 +80,6 @@ body {
 }
 .user-packages .package-list .modified {
     color: #999;
-    text-align: right;
 }
 
 .mini-profile .avatar {

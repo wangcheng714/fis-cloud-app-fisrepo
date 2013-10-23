@@ -21,3 +21,11 @@ pre {
 .downloads {
     padding: 7px;
 }
+
+div .user {
+    padding-top:8px;
+}
+
+div .downloads {
+    font-weight: bold;
+}

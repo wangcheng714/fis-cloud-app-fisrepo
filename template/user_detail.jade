@@ -13,16 +13,19 @@ block content
           .container-fluid
             h1
               a(href='/#{appName}/components') Components
-              i.icon-chevron-right(style='font-size: 72%; color: #999; margin: 0 0.25em;')
+              i.icon-chevron-right(style='font-size: 72%; color: #999; margin: 0 0.65em;')
               span(style='color: #999;') User
-              i.icon-chevron-right(style='font-size: 72%; color: #999; margin: 0 0.25em;')
+              i.icon-chevron-right(style='font-size: 72%; color: #999; margin: 0 0.65em;')
               | #{user.name}
             #user-packages-info
               table.table
                 tbody
                   tr
-                    th Total Packages
-                    td #{total}
+                    td
+                        .span9
+                            h4 Total Packages
+                        .span3
+                            h4(style="margin-left:15px") #{total}
               ul.package-list
                 for component in components
                     li.row-fluid
@@ -32,10 +35,20 @@ block content
                             .description
                                 | #{component.description}
                         .modified.span3
-                            | #{component.updateTime}
+                            |Update&nbsp; #{component.updateTime}
         .page-sidebar.span5
           .container-fluid
             .mini-profile
+              .avatar
+                img(src='http://www.gravatar.com/avatar/#{emailhash}?s=160')
+              .change-panel
+                span |
+                a(href='/usersite/password') 修改密码
+                span |
+                a(href='/usersite/email') 修改E-mail
+                span |
+                a(href='https://en.gravatar.com/site/login') 修改头像
+                span |
               table.table.table-striped
                 tbody
                   tr
@@ -47,4 +60,4 @@ block content
                   tr
                     th 邮箱
                     td
-                      a(href='mailto:#{user.email}') #{user.email}
+                      a(href='mailto:wangcheng@baidu.com') #{user.email}

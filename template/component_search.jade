@@ -11,7 +11,7 @@ block content
                 form#package-search-form.form-inline(style='margin-top: 1em;', action='#{searchUrl}',method='GET')
                   .control-group
                     .input-append
-                      input#package-search-q(type='text', placeholder='Search')
+                      input#package-search-q(type='text', placeholder='Search',name='key')
                       button#package-search-submit.btn(type='submit') 搜索
                       span.help-inline
             #searchResults.row-fluid(style='margin-top: 1.618em; display: block;')

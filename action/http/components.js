@@ -1,5 +1,6 @@
 var Component = require("../../lib/component.js"),
     render_helper = require("../../lib/render.js"),
+    moment = require('moment'),
     async = require('async');
 
 module.exports = function(req, res, app){
@@ -10,10 +11,13 @@ module.exports = function(req, res, app){
             Component.getComponentByTime({}, 10, function(error, updateComponents){
                 if(error){
                     callback(error);
+                }else if(updateComponents == null){
+                    callback(error, null);
                 }else{
                     for(var i=0; i<updateComponents.length; i++){
-                        updateComponents[i].updateTime = Math.ceil(((new Date()).getTime()-updateComponents[i].updateStamp) / (1000 * 60 * 60));
+                        updateComponents[i].updateTime = moment(updateComponents[i].updateStamp).fromNow();
                         updateComponents[i].componentUrl = "/" + app.get("appName") + "/component_detail?name=" + updateComponents[i].name;
+                        updateComponents[i].updateAuthor
                     }
                     callback(error, updateComponents);
                 }
@@ -23,6 +27,8 @@ module.exports = function(req, res, app){
             Component.getComponentByDownloads({}, 10, function(error, downloadComponents){
                 if(error){
                     callback(error);
+                }else if(downloadComponents == null){
+                    callback(error, null);
                 }else{
                     for(var i=0; i<downloadComponents.length; i++){
                         downloadComponents[i].componentUrl = "/" + app.get("appName") + "/component_detail?name=" + downloadComponents[i].name;

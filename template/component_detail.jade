@@ -13,13 +13,15 @@ block content
                 div.container-fluid
                     h1
                         a(href='/#{appName}/components') Components
-                        i.icon-chevron-right(style='font-size: 72%; color: #999; margin: 0 0.25em;')
+                        i.icon-chevron-right(style='font-size: 72%; color: #999; margin: 0 0.85em;')
                         | #{component.name}
                     p.description #{component.description}
+                    h4(style="margin-bottom:10px") 下载最新
                     pre.sh.sh_sourceCode
                         code
                             $ fis component install #{component.name}
-                    div.downloads 一共下载 #{component.totaldowns} 次
+                    - var totaldowns = component.totaldowns ? component.totaldowns : 0
+                    div.downloads 一共下载 #{totaldowns} 次
                     table.table.package-details-table
                         tbody
                             tr
@@ -28,24 +30,50 @@ block content
                             tr
                                 th 发布时间
                                 td #{component['updateTime']}
+                            if component.homepage
+                                tr
+                                    th 官方网站
+                                    td
+                                        a(href='#{component.homepage}') #{component.hoempage}
                             if component.keywords
                                 tr
                                     th 关键词
                                     td
                                         for keyword in component.keywords
-                                            span.keyword #{keyword},
+                                            span.keyword #{keyword},&nbsp;&nbsp;&nbsp;&nbsp;
                             tr.owners
                                 th 维护者
-                                td
-                                    ul
-                                        for maintainer in component.maintainers
-                                            li.owner(rel= maintainer.name)
-                                                a.user-link(href='/#{appName}/user_detail?name=#{maintainer.name}') #{maintainer.name}
+                                td.owners(style="padding:0 0 8px 8px;")
+                                    for maintainer in maintainers
+                                        div.user
+                                            img(src='http://www.gravatar.com/avatar/#{maintainer.emailhash}?s=32' style='margin-right: 6px;')
+                                            a.user-link(href='/#{appName}/user_detail?name=#{maintainer.name}') #{maintainer.name}
+                            if component.repository.url
+                                tr
+                                    th 代码库
+                                    td
+                                        a(href='#{component.repository.url}') #{component.repository.url}
                             tr
-                                th 下载包
-                                td component download url
+                                th 下载此版本
+                                td
+                                    pre.sh.sh_sourceCode
+                                        code $ fis component install #{component.name}@#{currentVersion}
+                            tr
+                                th 授权
+                                td #{component.license}
                     div#readme
                         h3.filename
                             i.icon-book
                             | README.md
                         div.data!= readmeContent
+            div.page-sidebar.span3
+                div.container-fluid
+                    h4 Versions
+                    ul.nav.nav-list
+                        for version in versions
+                            if version == currentVersion
+                                li.active
+                                    a(href='/#{appName}/component_detail?name=#{component.name}&version=#{version}') #{version}
+                            else
+                                li
+                                    a(href='/#{appName}/component_detail?name=#{component.name}&version=#{version}') #{version}

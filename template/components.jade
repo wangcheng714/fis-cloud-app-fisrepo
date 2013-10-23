@@ -29,12 +29,15 @@ block content
                             for updateComponent in data.updateComponents
                                 li.row-fluid
                                     .details.span7
-                                        a.user(href='/#{appName}/user_detail?name=#{updateComponent.updateAuthor}')
-                                            | #{updateComponent.updateAuthor}
-                                        span.action updated
-                                        a.name(href='#{updateComponent.componentUrl}') #{updateComponent.name}
-                                    .extra.span4
-                                        | #{updateComponent.updateTime} hours ago
+                                        .span4
+                                            a.user(href='/#{appName}/user_detail?name=#{updateComponent.updateAuthor}')
+                                                | #{updateComponent.updateAuthor}
+                                        .span3
+                                            span.action updated
+                                        .span4(style="font-weight:bold;")
+                                            a.name(href='#{updateComponent.componentUrl}') #{updateComponent.name}
+                                    .extra.span5
+                                        | Update &nbsp;#{updateComponent.updateTime} hours ago
                   .span3
                     h3 下载排行榜
                     #most-depended-on
