@@ -43,9 +43,9 @@ block content
                 img(src='http://www.gravatar.com/avatar/#{emailhash}?s=160')
               .change-panel
                 span |
-                a(href='/usersite/password') 修改密码
+                a(href='/usersite/password?url=#{redirectUrl}') 修改密码
                 span |
-                a(href='/usersite/email') 修改E-mail
+                a(href='/usersite/email?url=#{redirectUrl}') 修改E-mail
                 span |
                 a(href='https://en.gravatar.com/site/login') 修改头像
                 span |

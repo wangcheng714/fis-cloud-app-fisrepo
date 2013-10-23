@@ -25,6 +25,7 @@ module.exports = function(req, res, app){
                             user : user,
                             total : components.length,
                             components : components,
+                            redirectUrl : req.originalUrl,
                             emailhash : md5(user.email)
                         });
                     }
