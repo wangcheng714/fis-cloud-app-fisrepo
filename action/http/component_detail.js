@@ -57,7 +57,6 @@ module.exports = function(req, res, app){
 
 };
 
-//对version进行排序，从大到小
 function getVersions(component){
     var result = [];
     if(component.versions){
