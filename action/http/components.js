@@ -17,7 +17,6 @@ module.exports = function(req, res, app){
                     for(var i=0; i<updateComponents.length; i++){
                         updateComponents[i].updateTime = moment(updateComponents[i].updateStamp).fromNow();
                         updateComponents[i].componentUrl = "/" + app.get("appName") + "/component_detail?name=" + updateComponents[i].name;
-                        updateComponents[i].updateAuthor
                     }
                     callback(error, updateComponents);
                 }
@@ -36,6 +35,9 @@ module.exports = function(req, res, app){
                     callback(error, downloadComponents);
                 }
             })
+        },
+        categories : function(callback){
+            Component.getCategories(callback);
         },
         submittorComponents : function(callback){
             Component.getUserPackageNum(callback);

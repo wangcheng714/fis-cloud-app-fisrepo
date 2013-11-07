@@ -9,7 +9,7 @@ block stylesheets
 block content
     .container-fluid
         .row-fluid(style='margin-top: 20px;')
-            .page-main.page-home.span12
+            .page-main.page-home.span9
               .container-fluid
                 .row-fluid
                   .span12
@@ -38,7 +38,7 @@ block content
                                             a.name(href='#{updateComponent.componentUrl}') #{updateComponent.name}
                                     .extra.span5
                                         | Update &nbsp;#{updateComponent.updateTime}
-                  .span3
+                  .span4
                     h3 下载排行榜
                     #most-depended-on
                         ol.package-list
@@ -58,3 +58,13 @@ block content
                                         a.user(href='/#{appName}/user_detail?name=#{submittorComponent.name}') #{submittorComponent.name}
                                     .extra.span5
                                         | #{submittorComponent.value}  packages
+
+            .page-sidebar.span3(style="height:600px")
+                .container-fluid
+                    h4 分类
+                    #categories.loaded-counts
+                        ul.nav.nav-list.category-list
+                            for cate in data.categories
+                                li(rel='#{cate.name}')
+                                    a(href='/#{appName}/category?type=#{cate.name}') #{cate.name}
+                                        span.count&nbsp;(#{cate.number})

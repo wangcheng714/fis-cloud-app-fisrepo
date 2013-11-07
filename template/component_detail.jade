@@ -48,7 +48,7 @@ block content
                                         div.user
                                             img(src='http://www.gravatar.com/avatar/#{maintainer.emailhash}?s=32' style='margin-right: 6px;')
                                             a.user-link(href='/#{appName}/user_detail?name=#{maintainer.name}') #{maintainer.name}
-                            if component.repository.url
+                            if component.repository && component.repository.url
                                 tr
                                     th 代码库
                                     td

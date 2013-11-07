@@ -174,3 +174,9 @@ body {
     color: #666;
 }
 */
+
+
+#categoryPackages li:hover{
+   background-color: #f5f5f5; 
+}
+
