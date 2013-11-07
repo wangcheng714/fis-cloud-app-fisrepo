@@ -1,0 +1,54 @@
+extends ./layout/layout.jade
+
+block content
+	.container-fluid
+		.row-fluid(style="margin-top:20px")
+			.page-main.page-home.span9
+				.container-fluid
+					.row-fluid
+						.span12
+							h1
+								a(href="/#{appName}/components") Components
+								i.icon-chevron-right(style="front-size:72%;color:#999;margin:0 0.25em")  
+								| All
+					#categoryPackages.row-fluid(style="margin-top:1.618em;")
+						ol.package-list.category-package-list
+							for component in data.components
+								li(rel="#{component.name}").row-fluid
+									.detail.span8
+										a.name(href="/#{appName}/component_detail?name=#{component.name}") #{component.name}
+										.description #{component.description}
+									.extra.span4
+
+						#package-list-nav
+							if page == 1
+								a(href="javascript:void(0)").prev-link.disabled <-- 上一页
+							else
+								- var newPage = page - 1;
+								a(href="/#{appName}/category?type=#{type}&page=#{newPage}").prev-link <-- 上一页
+							| Showing&nbsp;&nbsp;  
+							strong
+								span.start #{startPage} 
+								|-&nbsp;
+								span.end #{endPage}&nbsp;   
+							| of&nbsp;&nbsp;&nbsp;
+							strong
+								span.total #{data.components.length}
+							|&nbsp;&nbsp;Packages
+							- var lastPage = data.components.length/10
+							if page >= lastPage
+								a(href="javascript:void(0)").next-link.disabled 下一页 -->
+							else
+								- var newPage = page + 1;
+								a(href="/#{appName}/category?type=#{type}&page=#{newPage}").next-link 下一页 -->
+
+							
+			.page-sidebar.span3(style="height:600px")
+				.container-fluid
+					h4 分类
+					#categories.loaded-counts
+						ul.nav.nav-list.category-list
+							for cate in data.categories
+								li(rel='#{cate.name}')
+									a(href='/#{appName}/category?type=#{cate.name}') #{cate.name}
+										span.count &nbsp;(#{cate.number})
