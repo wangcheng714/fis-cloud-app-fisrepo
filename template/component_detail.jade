@@ -19,7 +19,7 @@ block content
                     h4(style="margin-bottom:10px") 下载最新
                     pre.sh.sh_sourceCode
                         code
-                            $ fis component install #{component.name}
+                            $ light install #{component.name}
                     - var totaldowns = component.totaldowns ? component.totaldowns : 0
                     div.downloads 一共下载 #{totaldowns} 次
                     table.table.package-details-table
@@ -57,7 +57,7 @@ block content
                                 th 下载此版本
                                 td
                                     pre.sh.sh_sourceCode
-                                        code $ fis component install #{component.name}@#{currentVersion}
+                                        code $ light install #{component.name}@#{currentVersion}
                             tr
                                 th 授权
                                 td #{component.license}
