@@ -32,15 +32,18 @@ block content
 								|-&nbsp;
 								span.end #{endPage}&nbsp;   
 							| of&nbsp;&nbsp;&nbsp;
-							strong
-								span.total #{data.components.length}
+							- for cate in data.categories
+								if cate.name == type
+									strong #{cate.number}
 							|&nbsp;&nbsp;Packages
-							- var lastPage = data.components.length/10
-							if page >= lastPage
-								a(href="javascript:void(0)").next-link.disabled 下一页 -->
-							else
-								- var newPage = page + 1;
-								a(href="/#{appName}/category?type=#{type}&page=#{newPage}").next-link 下一页 -->
+							- for cate in data.categories
+								if cate.name == type
+									-var lastPage = cate.number/10;
+									if page >= lastPage
+										a(href="javascript:void(0)").next-link.disabled 下一页 -->
+									else
+										- var newPage = parseInt(page) + 1;
+										a(href="/#{appName}/category?type=#{type}&page=#{newPage}").next-link 下一页 -->
 
 							
 			.page-sidebar.span3(style="height:600px")
