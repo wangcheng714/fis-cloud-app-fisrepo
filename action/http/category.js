@@ -9,6 +9,7 @@ module.exports = function(req, res, app){
     var page = req.query.page || 1;
     async.parallel({
     	components : function(callback){
+            //todo 查询安装type
     		Component.getComponentByPage({}, 10, page, function(error, components){
     			if(error){
 	                callback(error);
