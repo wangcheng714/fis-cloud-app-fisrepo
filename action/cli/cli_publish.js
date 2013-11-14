@@ -7,6 +7,7 @@ module.exports = function(req, res, app){
         file_type = req.files.file.type,
         file_size = Math.ceil(req.files.file.size / 1024),
         user_name = req.body.user_name,
+        email = req.body.email,
         config_str = req.body.config;
 
     var readme_path = null;
@@ -44,7 +45,7 @@ module.exports = function(req, res, app){
                             }
                         });
                     }else{
-                        Component.addComponent(config, user_name, function(error, result){
+                        Component.addComponent(config, user_name, email, function(error, result){
                             if(!error){
                                 res.send(200, "Publish component [" + config.name + "@" + config.version + "] success!");
                             }else{

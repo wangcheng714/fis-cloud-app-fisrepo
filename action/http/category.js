@@ -9,8 +9,10 @@ module.exports = function(req, res, app){
     var page = req.query.page || 1;
     async.parallel({
     	components : function(callback){
-            //todo 查询安装type
-    		Component.getComponentByPage({}, 10, page, function(error, components){
+            //query, limit, page, callback
+            var query = new Array();
+            query.push(type);
+    		Component.getComponentByPage({"keywords" : {$in : query}}, 10, page, function(error, components){
     			if(error){
 	                callback(error);
 	            }else if(components == null){
@@ -22,7 +24,7 @@ module.exports = function(req, res, app){
     	},
     	categories : function(callback){
             Component.getCategories(callback);
-        },
+        }
      }, function(error, results){
 	        if(error){
 	            res.send(500, error);
