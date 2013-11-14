@@ -37,7 +37,7 @@ module.exports = function(req, res, app){
                         fis.db.writeFile(readmeFile, {}, readme_path, function(error, gs){});
                     }
                     if(component){
-                        Component.updateComponent(component, config, user_name, function(error, result){
+                        Component.updateComponent(component, config, user_name, email, function(error, result){
                             if(!error){
                                 res.send(200, "Publish component [" + component.name + "@" + component.version + "] success!");
                             }else{
